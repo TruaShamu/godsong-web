@@ -140,6 +140,15 @@
           <canvas id="organStaffCanvas"></canvas>
         </div>
       </div>
+
+      <div class="controls-title" style="margin-top: 12px;">═══ Compose ═══</div>
+      <div class="composer-row">
+        <input type="text" id="composerName" placeholder="Song name..." class="composer-name-input">
+        <button id="btnComposerSave" class="composer-btn">💾 Save</button>
+        <button id="btnComposerExport" class="composer-btn">📄 Export .CPP</button>
+        <button id="btnComposerCopy" class="composer-btn">📋 Copy</button>
+      </div>
+      <div id="composerSongList" class="composer-song-list"></div>
     </div>
   </div>
 
@@ -168,6 +177,7 @@
 <script src="js/controls.js"></script>
 <script src="js/psalmody.js"></script>
 <script src="js/organ.js"></script>
+<script src="js/composer.js"></script>
 <script src="js/ui.js"></script>
 </body>
 </html>

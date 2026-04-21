@@ -302,6 +302,7 @@ const Organ = (() => {
     updateOctaveDisplay();
     initRecordButtons();
     renderRecordedStaff();
+    if (typeof Composer !== 'undefined') Composer.init();
   }
 
   function deactivate() {

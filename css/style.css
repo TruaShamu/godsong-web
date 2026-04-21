@@ -631,3 +631,35 @@ button.playing { border-color: var(--red); color: var(--red); }
   padding: 2px 4px;
 }
 .organ-staff-container { margin-top: 8px; }
+
+/* ====== Composer ====== */
+.composer-row {
+  display: flex; align-items: center; gap: 6px;
+  margin: 6px 0; flex-wrap: wrap;
+}
+.composer-name-input {
+  background: #111; color: #0f0; border: 1px solid #444;
+  font-family: 'TempleOS', monospace; font-size: 13px;
+  padding: 4px 8px; flex: 1; min-width: 120px;
+}
+.composer-name-input::placeholder { color: #555; }
+.composer-btn {
+  background: #222; color: #0f0; border: 1px solid #444;
+  padding: 4px 8px; cursor: pointer; font-family: 'TempleOS', monospace;
+  font-size: 12px; white-space: nowrap;
+}
+.composer-btn:hover { background: #333; }
+.composer-song-list { margin-top: 6px; }
+.composer-song-item {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3px 6px; border-bottom: 1px solid #222;
+  font-size: 12px;
+}
+.composer-song-name { color: #0f0; flex: 1; }
+.composer-song-notes { color: #888; }
+.composer-song-item button {
+  background: #222; color: #aaa; border: 1px solid #333;
+  padding: 2px 6px; cursor: pointer; font-family: 'TempleOS', monospace;
+  font-size: 11px;
+}
+.composer-song-item button:hover { color: #0f0; border-color: #0f0; }
