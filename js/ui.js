@@ -115,8 +115,11 @@ btnCopy.addEventListener('click', () => {
   }
 });
 
-// Keyboard shortcuts
+// Keyboard shortcuts (generator-specific)
 document.addEventListener('keydown', e => {
+  const genActive = document.getElementById('tab-generator').classList.contains('active');
+  if (!genActive) return;
+
   if (e.key === 'F7') { e.preventDefault(); btnGenerate.click(); }
   if (e.key === ' ' && !e.target.matches('input,select')) {
     e.preventDefault();

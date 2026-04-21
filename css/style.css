@@ -187,6 +187,177 @@ button.playing { border-color: var(--red); color: var(--red); }
 #noteLog .log-note { color: var(--magenta); }
 #noteLog .log-info { color: #555; }
 
+/* ============================================================================
+   Tabs
+   ============================================================================ */
+
+.tab-bar {
+  display: flex;
+  gap: 0;
+  margin-bottom: 8px;
+}
+
+.tab {
+  background: #111;
+  color: #555;
+  border: 1px solid #333;
+  border-bottom: none;
+  padding: 4px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.tab:hover { color: var(--fg); }
+.tab.active {
+  background: var(--bg);
+  color: var(--cyan);
+  border-color: var(--cyan);
+  border-bottom: 1px solid var(--bg);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ============================================================================
+   Psalmody
+   ============================================================================ */
+
+.psalmody-layout {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.hymn-list-panel {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+#hymnSearch {
+  width: 100%;
+  background: #111;
+  color: var(--fg);
+  border: 1px solid #444;
+  font-family: inherit;
+  font-size: 13px;
+  padding: 3px 6px;
+  margin: 4px 0;
+  outline: none;
+}
+#hymnSearch:focus { border-color: var(--cyan); }
+#hymnSearch::placeholder { color: #444; }
+
+.hymn-list {
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #333;
+  background: #0a0a0a;
+}
+
+.hymn-item {
+  padding: 2px 6px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hymn-item:hover { background: #1a1a1a; }
+.hymn-item.selected {
+  background: var(--cyan);
+  color: #000;
+}
+.hymn-item .hymn-icons {
+  color: #555;
+  font-size: 11px;
+}
+.hymn-item.selected .hymn-icons { color: #003333; }
+
+.hymn-detail-panel {
+  flex: 1;
+  min-height: 200px;
+}
+
+.hymn-detail-empty {
+  color: #444;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.hymn-name {
+  color: var(--yellow);
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.hymn-meta {
+  color: #555;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.hymn-meta span { margin-right: 12px; }
+
+.hymn-controls {
+  margin: 6px 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.hymn-sections {
+  display: flex;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.section-btn {
+  background: #222;
+  color: var(--fg);
+  border: 1px solid #444;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+.section-btn:hover { border-color: var(--cyan); }
+.section-btn.active {
+  background: var(--cyan);
+  color: #000;
+  border-color: var(--cyan);
+}
+.section-btn.playing {
+  background: #003333;
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.hymn-lyrics {
+  border: 1px solid #333;
+  background: #0a0a0a;
+  padding: 6px 8px;
+  font-size: 14px;
+  color: var(--green);
+  min-height: 50px;
+  max-height: 100px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  margin-top: 6px;
+}
+
+.hymn-notation {
+  border: 1px solid #333;
+  background: #0a0a0a;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #666;
+  max-height: 40px;
+  overflow-y: auto;
+  word-break: break-all;
+  margin-top: 4px;
+}
+
 .credit {
   text-align: center;
   color: #333;
@@ -194,6 +365,172 @@ button.playing { border-color: var(--red); color: var(--red); }
   margin-top: 8px;
 }
 .credit a { color: #555; }
+
+/* ============================================================================
+   Tabs
+   ============================================================================ */
+
+.tab-bar {
+  display: flex;
+  gap: 0;
+  margin-bottom: 8px;
+}
+
+.tab-bar .tab {
+  background: #111;
+  color: #555;
+  border: 1px solid #333;
+  border-bottom: none;
+  padding: 3px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tab-bar .tab.active {
+  background: var(--bg);
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.tab-bar .tab:hover:not(.active) {
+  color: var(--fg);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ============================================================================
+   Psalmody Tab
+   ============================================================================ */
+
+.hymn-browser {
+  margin: 8px 0;
+}
+
+.hymn-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.hymn-search input[type="text"] {
+  background: #111;
+  color: var(--fg);
+  border: 1px solid #444;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 2px 6px;
+  flex: 1;
+}
+
+.hymn-count {
+  color: #555;
+  font-size: 12px;
+}
+
+.hymn-list-wrap {
+  border: 1px solid #333;
+  background: #0a0a0a;
+  height: 140px;
+  overflow-y: auto;
+}
+
+.hymn-list {
+  padding: 2px 0;
+}
+
+.hymn-entry {
+  padding: 1px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--fg);
+  display: flex;
+  justify-content: space-between;
+}
+
+.hymn-entry:hover {
+  background: #111;
+  color: var(--white);
+}
+
+.hymn-entry.selected {
+  background: var(--cyan);
+  color: var(--bg);
+}
+
+.hymn-entry .hymn-badges {
+  font-size: 11px;
+  color: #555;
+}
+
+.hymn-entry.selected .hymn-badges {
+  color: #006666;
+}
+
+.hymn-detail {
+  border: 1px solid #333;
+  padding: 8px;
+  margin-top: 6px;
+  background: #0a0a0a;
+}
+
+.hymn-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.hymn-name {
+  color: var(--yellow);
+  font-size: 14px;
+}
+
+.hymn-meta {
+  color: #555;
+  font-size: 12px;
+}
+
+.hymn-lyrics {
+  color: var(--green);
+  font-size: 13px;
+  margin: 4px 0;
+  white-space: pre-wrap;
+  max-height: 48px;
+  overflow-y: auto;
+}
+
+.hymn-sections {
+  display: flex;
+  gap: 4px;
+  margin: 4px 0;
+}
+
+.hymn-section-btn {
+  background: #222;
+  color: #555;
+  border: 1px solid #333;
+  font-family: inherit;
+  font-size: 11px;
+  padding: 1px 8px;
+  cursor: pointer;
+}
+
+.hymn-section-btn.active {
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.hymn-section-btn.playing {
+  color: var(--red);
+  border-color: var(--red);
+}
 
 @media (max-width: 660px) {
   #screen { width: 100%; min-height: auto; }

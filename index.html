@@ -14,49 +14,79 @@
     <div>Web Port</div>
   </div>
 
-  <h1>✝ GOD SAYS: ✝</h1>
-  <div class="subtitle">"Press Generate to hear the Word"</div>
+  <!-- Tab bar -->
+  <div class="tab-bar">
+    <button class="tab active" data-tab="generator">⟨F1⟩ Generator</button>
+    <button class="tab" data-tab="psalmody">⟨F2⟩ Psalmody</button>
+  </div>
 
-  <div class="controls">
-    <div class="controls-title">═══ Controls ═══</div>
-    <div class="row">
-      <label>Complexity:</label>
-      <select id="complexity">
-        <option value="0">Simple</option>
-        <option value="1" selected>Normal</option>
-        <option value="2">Complex</option>
-      </select>
+  <!-- ==================== Generator Tab ==================== -->
+  <div class="tab-content active" id="tab-generator">
+    <h1>✝ GOD SAYS: ✝</h1>
+    <div class="subtitle">"Press Generate to hear the Word"</div>
 
-      <label>Meter:</label>
-      <select id="meter">
-        <option value="8" selected>4/4 (8 beats)</option>
-        <option value="6">6/8 (6 beats)</option>
-      </select>
+    <div class="controls">
+      <div class="controls-title">═══ Controls ═══</div>
+      <div class="row">
+        <label>Complexity:</label>
+        <select id="complexity">
+          <option value="0">Simple</option>
+          <option value="1" selected>Normal</option>
+          <option value="2">Complex</option>
+        </select>
+
+        <label>Meter:</label>
+        <select id="meter">
+          <option value="8" selected>4/4 (8 beats)</option>
+          <option value="6">6/8 (6 beats)</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>Tempo:</label>
+        <input type="range" id="tempo" min="60" max="300" value="150">
+        <span id="tempoVal" style="color:#aaa;">150 BPM</span>
+
+        <label>Octave:</label>
+        <select id="baseOctave">
+          <option value="3">3</option>
+          <option value="4" selected>4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="row" style="margin-top: 6px;">
+        <button id="btnGenerate">⟨F7⟩ Generate</button>
+        <button id="btnPlay">▶ Play</button>
+        <button id="btnStop" style="display:none;">■ Stop</button>
+        <button id="btnCopy" style="font-size:12px;">Copy Song</button>
+      </div>
     </div>
-    <div class="row">
-      <label>Tempo:</label>
-      <input type="range" id="tempo" min="60" max="300" value="150">
-      <span id="tempoVal" style="color:#aaa;">150 BPM</span>
 
-      <label>Octave:</label>
-      <select id="baseOctave">
-        <option value="3">3</option>
-        <option value="4" selected>4</option>
-        <option value="5">5</option>
-      </select>
-    </div>
-    <div class="row" style="margin-top: 6px;">
-      <button id="btnGenerate">⟨F7⟩ Generate</button>
-      <button id="btnPlay">▶ Play</button>
-      <button id="btnStop" style="display:none;">■ Stop</button>
-      <button id="btnCopy" style="font-size:12px;">Copy Song</button>
+    <div class="song-display" id="songDisplay">
+      <span class="note-text" id="songText" style="color:#555;">No song generated yet. Press Generate!</span>
     </div>
   </div>
 
-  <div class="song-display" id="songDisplay">
-    <span class="note-text" id="songText" style="color:#555;">No song generated yet. Press Generate!</span>
+  <!-- ==================== Psalmody Tab ==================== -->
+  <div class="tab-content" id="tab-psalmody">
+    <h1>✝ PSALMODY ✝</h1>
+    <div class="subtitle">"103 hymns from TempleOS"</div>
+
+    <div class="psalmody-layout">
+      <!-- Hymn list -->
+      <div class="hymn-list-panel">
+        <div class="controls-title">═══ Hymns ═══</div>
+        <input type="text" id="hymnSearch" placeholder="Search hymns...">
+        <div class="hymn-list" id="hymnList"></div>
+      </div>
+
+      <!-- Hymn detail -->
+      <div class="hymn-detail-panel" id="hymnDetail">
+        <div class="hymn-detail-empty">Select a hymn from the list</div>
+      </div>
+    </div>
   </div>
 
+  <!-- ==================== Shared: Visualizer + Status ==================== -->
   <div class="visualizer">
     <canvas id="pianoRoll"></canvas>
   </div>
@@ -77,6 +107,7 @@
 <script src="js/parser.js"></script>
 <script src="js/player.js"></script>
 <script src="js/hymns.js"></script>
+<script src="js/psalmody.js"></script>
 <script src="js/ui.js"></script>
 </body>
 </html>
