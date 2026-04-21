@@ -113,6 +113,9 @@ function renderHymnDetail() {
 
   // Render staff notation
   renderStaffForHymn(h);
+
+  // Update tempo slider to match hymn BPM
+  if (typeof TempoCtrl !== 'undefined') TempoCtrl.setBPM(h.bpm);
 }
 
 function escapeHtml(text) {
@@ -324,6 +327,17 @@ function initPsalmodyKeys() {
 
 function initPsalmody() {
   initTabs();
+
+  // Init TempleOS-style tempo/staccato sliders
+  TempoCtrl.init('tempoCtrlCanvas', {
+    bpm: 150,
+    onTempoChange: (bpm) => {
+      // If a hymn is selected, update its playback BPM for next play
+    },
+    onStaccatoChange: (ratio) => {
+      // Will affect note duration in future playback
+    }
+  });
 
   loadHymns().then(data => {
     if (!data) {

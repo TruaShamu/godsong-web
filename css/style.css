@@ -598,3 +598,10 @@ button.playing { border-color: var(--red); color: var(--red); }
   padding: 4px 0;
 }
 .staff-scroll canvas { display: block; min-height: 90px; }
+
+/* ====== Tempo/Staccato Control ====== */
+.tempo-ctrl-panel {
+  flex-shrink: 0; padding: 6px;
+  display: flex; align-items: flex-start;
+}
+.tempo-ctrl-panel canvas { cursor: ns-resize; }
