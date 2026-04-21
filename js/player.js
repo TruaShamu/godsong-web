@@ -25,10 +25,14 @@ function playSong(events) {
   playStartTime = audioCtx.currentTime + 0.05;
   scheduledNodes = [];
 
-  // Master gain for the harsh square wave
-  const master = audioCtx.createGain();
-  master.gain.value = 0.15; // PC speaker wasn't loud
-  master.connect(audioCtx.destination);
+  // Separate gain nodes for melody and harmony voices
+  const melodyGain = audioCtx.createGain();
+  melodyGain.gain.value = 0.15; // PC speaker wasn't loud
+  melodyGain.connect(audioCtx.destination);
+
+  const harmonyGain = audioCtx.createGain();
+  harmonyGain.gain.value = 0.10; // harmony sits behind melody
+  harmonyGain.connect(audioCtx.destination);
 
   let totalDuration = 0;
 
@@ -51,7 +55,9 @@ function playSong(events) {
     gain.gain.setValueAtTime(0, playStartTime + ev.time + ev.duration);
 
     osc.connect(gain);
-    gain.connect(master);
+    // Route to the appropriate voice bus
+    const bus = (ev.voice === 'harmony') ? harmonyGain : melodyGain;
+    gain.connect(bus);
 
     osc.start(playStartTime + ev.time);
     osc.stop(playStartTime + ev.time + ev.duration + 0.01);
