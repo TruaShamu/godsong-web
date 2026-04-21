@@ -75,9 +75,10 @@ const Organ = (() => {
 
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    osc.type = 'square';
+    // Use raw square wave matching player.js (non-bandlimited, PC speaker authentic)
+    osc.setPeriodicWave(createRawSquareWave());
     osc.frequency.value = freq;
-    gain.gain.value = 0.10; // gentle, like a real PC speaker
+    gain.gain.value = 0.08; // gentle, like a real PC speaker
 
     osc.connect(gain);
     gain.connect(audioCtx.destination);

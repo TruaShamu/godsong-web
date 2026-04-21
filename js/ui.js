@@ -127,5 +127,11 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// Authentic mode toggle
+document.getElementById('authenticToggle').addEventListener('change', function() {
+  setAuthenticMode(this.checked);
+  statusLeft.textContent = this.checked ? 'Authentic: single voice (like real PC speaker)' : 'Enhanced: polyphonic playback';
+});
+
 // Generate one on load for instant gratification
 window.addEventListener('load', () => btnGenerate.click());

@@ -173,6 +173,8 @@ button.playing { border-color: var(--red); color: var(--red); }
 }
 
 .status-bar .active { color: var(--green); }
+.authentic-toggle { cursor: pointer; color: #aaa; }
+.authentic-toggle input { cursor: pointer; margin-right: 3px; vertical-align: middle; }
 
 #noteLog {
   border: 1px solid #333;
