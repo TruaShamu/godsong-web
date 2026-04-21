@@ -81,8 +81,16 @@
       </div>
 
       <!-- Hymn detail -->
-      <div class="hymn-detail-panel" id="hymnDetail">
-        <div class="hymn-detail-empty">Select a hymn from the list</div>
+      <div class="hymn-detail-panel">
+        <div class="hymn-staff-container" id="hymnStaffContainer" style="display:none;">
+          <div class="controls-title">═══ Staff ═══</div>
+          <div class="staff-scroll">
+            <canvas id="staffCanvas"></canvas>
+          </div>
+        </div>
+        <div id="hymnDetail">
+          <div class="hymn-detail-empty">Select a hymn from the list</div>
+        </div>
       </div>
     </div>
   </div>
@@ -128,6 +136,7 @@
 <script src="js/parser.js"></script>
 <script src="js/player.js"></script>
 <script src="js/hymns.js"></script>
+<script src="js/staff.js"></script>
 <script src="js/psalmody.js"></script>
 <script src="js/organ.js"></script>
 <script src="js/ui.js"></script>

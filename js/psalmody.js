@@ -110,12 +110,47 @@ function renderHymnDetail() {
   // Wire up play/stop
   document.getElementById('btnHymnPlay').addEventListener('click', () => playCurrentHymn());
   document.getElementById('btnHymnStop').addEventListener('click', () => stopCurrentHymn());
+
+  // Render staff notation
+  renderStaffForHymn(h);
 }
 
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+function renderStaffForHymn(hymn) {
+  const container = document.getElementById('hymnStaffContainer');
+  if (!container) return;
+
+  // Parse all melody sections into note events
+  const allEvents = [];
+  const allLyrics = [];
+
+  hymn.sections.forEach(section => {
+    const events = parseSong(section.melody, hymn.bpm);
+    const noteEvents = events.filter(e => e.type === 'note');
+    allEvents.push(...noteEvents);
+
+    // Split lyrics into words and map to notes
+    if (section.lyrics) {
+      const words = section.lyrics.split(/\s+/).filter(w => w);
+      words.forEach((w, i) => allLyrics.push(w));
+      // Pad if fewer words than notes
+      while (allLyrics.length < allEvents.length) allLyrics.push('');
+    }
+  });
+
+  if (allEvents.length === 0) {
+    container.style.display = 'none';
+    return;
+  }
+
+  container.style.display = '';
+  Staff.init('staffCanvas');
+  Staff.render(allEvents, allLyrics.length > 0 ? allLyrics : null);
 }
 
 // ============================================================================

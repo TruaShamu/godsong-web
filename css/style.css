@@ -589,3 +589,12 @@ button.playing { border-color: var(--red); color: var(--red); }
   font-family: 'TempleOS', monospace; font-size: 12px;
   pointer-events: none;
 }
+
+/* ====== Staff Notation ====== */
+.hymn-staff-container { margin-bottom: 8px; }
+.staff-scroll {
+  overflow-x: auto; overflow-y: hidden;
+  background: #000; border: 1px solid #333;
+  padding: 4px 0;
+}
+.staff-scroll canvas { display: block; min-height: 90px; }
