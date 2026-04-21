@@ -117,6 +117,29 @@
       <div class="controls-title" style="margin-top: 12px;">═══ Keyboard ═══</div>
       <div class="organ-help">Keys: A B C D E F G │ Shift = Sharp │ 1-6 = Octave │ Z/X = Oct ↓/↑</div>
       <div id="organKeyboard" class="organ-keyboard"></div>
+
+      <div class="controls-title" style="margin-top: 12px;">═══ Record ═══</div>
+      <div class="record-row">
+        <button id="btnRecord" class="record-btn">● REC</button>
+        <button id="btnRecordPlay" class="record-play-btn" disabled>▶ Play</button>
+        <button id="btnRecordClear" class="record-clear-btn" disabled>✕ Clear</button>
+        <span class="record-status" id="recordStatus">Ready</span>
+
+        <label style="margin-left:12px; color:#aaa; font-size:12px;">Duration:</label>
+        <select id="recordDuration" class="record-duration">
+          <option value="s">♬ 16th</option>
+          <option value="e">♪ 8th</option>
+          <option value="q" selected>♩ Qtr</option>
+          <option value="h">𝅗𝅥 Half</option>
+          <option value="w">𝅝 Whole</option>
+        </select>
+      </div>
+
+      <div class="organ-staff-container">
+        <div class="staff-scroll">
+          <canvas id="organStaffCanvas"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -20,6 +20,19 @@ const Organ = (() => {
   let activeNotes = new Map();   // key → { osc, gain }
   let organActive = false;       // only process keys when organ tab is visible
 
+  // Recording state
+  let recording = false;
+  let recordedNotes = [];        // Array of { name, octave, accidental, duration }
+
+  // Duration map for recording: key → quarter note multiplier
+  const DURATION_MAP = {
+    's': 0.25,   // sixteenth
+    'e': 0.5,    // eighth
+    'q': 1.0,    // quarter
+    'h': 2.0,    // half
+    'w': 4.0,    // whole
+  };
+
   // TempleOS note list: A, A#, B, C, C#, D, D#, E, F, F#, G, G#
   // We map keyboard letters to natural notes
   const KEY_TO_NOTE = {
@@ -73,6 +86,26 @@ const Organ = (() => {
     activeNotes.set(key, { osc, gain });
     highlightKey(noteName, true);
     updateStatus(`♪ ${noteName}${octave} (${freq.toFixed(1)} Hz)`);
+
+    // Record the note if in recording mode
+    if (recording) {
+      const durSelect = document.getElementById('recordDuration');
+      const durKey = durSelect ? durSelect.value : 'q';
+      const accidental = noteName.length > 1 ? '#' : null;
+      const baseName = noteName[0];
+      recordedNotes.push({
+        name: baseName,
+        octave: octave,
+        accidental: accidental,
+        duration: DURATION_MAP[durKey],
+        fullDuration: DURATION_MAP[durKey],
+        freq: freq,
+        type: 'note',
+        time: recordedNotes.length * 0.3, // placeholder for staff rendering
+      });
+      updateRecordStatus();
+      renderRecordedStaff();
+    }
   }
 
   function stopNote(noteName, octave) {
@@ -267,16 +300,117 @@ const Organ = (() => {
     renderKeyboard();
     renderOctaveSelector();
     updateOctaveDisplay();
+    initRecordButtons();
+    renderRecordedStaff();
   }
 
   function deactivate() {
     organActive = false;
     stopAllNotes();
+    if (recording) toggleRecord(); // stop recording on tab switch
+  }
+
+  // --- Recording Controls ---
+  function toggleRecord() {
+    recording = !recording;
+    const btn = document.getElementById('btnRecord');
+    if (btn) btn.classList.toggle('active', recording);
+    const status = document.getElementById('recordStatus');
+    if (status) status.textContent = recording ? '● RECORDING...' : (recordedNotes.length > 0 ? `${recordedNotes.length} notes` : 'Ready');
+    if (status) status.style.color = recording ? '#f55' : '#888';
+  }
+
+  function playRecorded() {
+    if (recordedNotes.length === 0) return;
+    const bpm = (typeof TempoCtrl !== 'undefined') ? TempoCtrl.getBPM() : 150;
+    const qtrDur = 60 / bpm;
+
+    // Build proper timed events
+    let time = 0;
+    const events = recordedNotes.map(n => {
+      const ev = {
+        ...n,
+        time: time,
+        duration: n.fullDuration * qtrDur * 0.9,
+        fullDuration: n.fullDuration * qtrDur,
+      };
+      time += n.fullDuration * qtrDur;
+      return ev;
+    });
+
+    playSong(events);
+  }
+
+  function clearRecorded() {
+    recordedNotes = [];
+    updateRecordStatus();
+    renderRecordedStaff();
+  }
+
+  function updateRecordStatus() {
+    const status = document.getElementById('recordStatus');
+    if (status && !recording) status.textContent = `${recordedNotes.length} notes`;
+    const playBtn = document.getElementById('btnRecordPlay');
+    const clearBtn = document.getElementById('btnRecordClear');
+    if (playBtn) playBtn.disabled = recordedNotes.length === 0;
+    if (clearBtn) clearBtn.disabled = recordedNotes.length === 0;
+  }
+
+  function renderRecordedStaff() {
+    if (typeof Staff === 'undefined') return;
+    const canvas = document.getElementById('organStaffCanvas');
+    if (!canvas) return;
+    Staff.init('organStaffCanvas');
+    if (recordedNotes.length > 0) {
+      Staff.render(recordedNotes, null);
+    } else {
+      // Clear canvas
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement?.clientWidth || 600;
+      canvas.height = 90;
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  function exportToPlayString() {
+    // Convert recorded notes to TempleOS Play() notation
+    if (recordedNotes.length === 0) return '';
+    const DURATION_TO_CHAR = { 0.25: 's', 0.5: 'e', 1.0: 'q', 2.0: 'h', 4.0: 'w' };
+    let str = '';
+    let lastDur = null;
+    let lastOctave = null;
+
+    recordedNotes.forEach(n => {
+      const durChar = DURATION_TO_CHAR[n.fullDuration] || 'q';
+      if (durChar !== lastDur) { str += durChar; lastDur = durChar; }
+      if (n.octave !== lastOctave) { str += n.octave; lastOctave = n.octave; }
+      str += n.name;
+      if (n.accidental === '#') str += '#'; // note: TempleOS uses # after note in some contexts
+    });
+    return str;
+  }
+
+  function initRecordButtons() {
+    const recBtn = document.getElementById('btnRecord');
+    const playBtn = document.getElementById('btnRecordPlay');
+    const clearBtn = document.getElementById('btnRecordClear');
+
+    if (recBtn) {
+      recBtn.onclick = toggleRecord;
+    }
+    if (playBtn) {
+      playBtn.onclick = playRecorded;
+    }
+    if (clearBtn) {
+      clearBtn.onclick = clearRecorded;
+    }
+    updateRecordStatus();
   }
 
   // Global key listeners (always registered, but guarded by organActive)
   document.addEventListener('keydown', handleKeyDown);
   document.addEventListener('keyup', handleKeyUp);
 
-  return { activate, deactivate, stopAllNotes };
+  return { activate, deactivate, stopAllNotes, exportToPlayString, getRecordedNotes: () => recordedNotes };
 })();

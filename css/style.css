@@ -605,3 +605,29 @@ button.playing { border-color: var(--red); color: var(--red); }
   display: flex; align-items: flex-start;
 }
 .tempo-ctrl-panel canvas { cursor: ns-resize; }
+
+/* ====== Record Mode ====== */
+.record-row {
+  display: flex; align-items: center; gap: 8px;
+  margin: 8px 0; flex-wrap: wrap;
+}
+.record-btn {
+  background: #333; color: #f55; border: 1px solid #f55;
+  padding: 4px 12px; cursor: pointer; font-family: 'TempleOS', monospace;
+  font-size: 14px;
+}
+.record-btn.active { background: #f55; color: #000; animation: rec-blink 1s infinite; }
+@keyframes rec-blink { 50% { opacity: 0.6; } }
+.record-play-btn, .record-clear-btn {
+  background: #222; color: #0f0; border: 1px solid #444;
+  padding: 4px 10px; cursor: pointer; font-family: 'TempleOS', monospace;
+  font-size: 12px;
+}
+.record-play-btn:disabled, .record-clear-btn:disabled { opacity: 0.4; cursor: default; }
+.record-status { color: #888; font-size: 12px; }
+.record-duration {
+  background: #222; color: #0f0; border: 1px solid #444;
+  font-family: 'TempleOS', monospace; font-size: 12px;
+  padding: 2px 4px;
+}
+.organ-staff-container { margin-top: 8px; }
