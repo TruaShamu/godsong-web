@@ -18,6 +18,7 @@
   <div class="tab-bar">
     <button class="tab active" data-tab="generator">⟨F1⟩ Generator</button>
     <button class="tab" data-tab="psalmody">⟨F2⟩ Psalmody</button>
+    <button class="tab" data-tab="organ">⟨F3⟩ Organ</button>
   </div>
 
   <!-- ==================== Generator Tab ==================== -->
@@ -86,6 +87,26 @@
     </div>
   </div>
 
+  <!-- ==================== Organ Tab ==================== -->
+  <div class="tab-content" id="tab-organ">
+    <h1>✝ ORGAN ✝</h1>
+    <div class="subtitle">"Use your keyboard as a holy instrument"</div>
+
+    <div class="organ-panel">
+      <div class="controls-title">═══ Octave ═══</div>
+      <div class="organ-octave-row">
+        <span>Z↓</span>
+        <div id="organOctaveSelector" class="octave-selector"></div>
+        <span>X↑</span>
+        <span class="organ-octave-display">Oct: <b id="organOctave">4</b></span>
+      </div>
+
+      <div class="controls-title" style="margin-top: 12px;">═══ Keyboard ═══</div>
+      <div class="organ-help">Keys: A B C D E F G │ Shift = Sharp │ 1-6 = Octave │ Z/X = Oct ↓/↑</div>
+      <div id="organKeyboard" class="organ-keyboard"></div>
+    </div>
+  </div>
+
   <!-- ==================== Shared: Visualizer + Status ==================== -->
   <div class="visualizer">
     <canvas id="pianoRoll"></canvas>
@@ -108,6 +129,7 @@
 <script src="js/player.js"></script>
 <script src="js/hymns.js"></script>
 <script src="js/psalmody.js"></script>
+<script src="js/organ.js"></script>
 <script src="js/ui.js"></script>
 </body>
 </html>

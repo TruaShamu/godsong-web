@@ -216,6 +216,12 @@ function initTabs() {
         if (genStop) genStop.style.display = 'none';
         stopCurrentHymn();
       }
+
+      // Activate/deactivate organ
+      if (typeof Organ !== 'undefined') {
+        if (target === 'organ') Organ.activate();
+        else Organ.deactivate();
+      }
     });
   });
 }
@@ -232,6 +238,7 @@ function initPsalmodyKeys() {
     // Tab switching
     if (e.key === 'F1') { e.preventDefault(); document.querySelector('[data-tab="generator"]').click(); }
     if (e.key === 'F2') { e.preventDefault(); document.querySelector('[data-tab="psalmody"]').click(); }
+    if (e.key === 'F3') { e.preventDefault(); document.querySelector('[data-tab="organ"]').click(); }
 
     if (!psalmodyActive) return;
     if (e.target.matches('input')) return; // don't hijack search
